@@ -1,6 +1,6 @@
 import { useUser } from './UserContext';
 
-function UserDetails() {
+function UserProfile() {
   const userData = useUser();
 
   return (
@@ -11,5 +11,5 @@ function UserDetails() {
   );
 }
 
-export default UserDetails;
+export default UserProfile;
 
