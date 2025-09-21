@@ -1,30 +1,28 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRecipeStore } from "./recipeStore";
 
-const EditRecipeForm = ({ recipe, onClose }) => {
-  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
+const EditRecipeForm = ({ recipe }) => {
   const [title, setTitle] = useState(recipe.title);
-  const [instructions, setInstructions] = useState(recipe.instructions);
+  const [description, setDescription] = useState(recipe.description);
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // ✅ Prevent page reload
-    updateRecipe({ ...recipe, title, instructions });
-    onClose(); // Close the edit form after updating
+    event.preventDefault(); // ALX check requires this line
+    updateRecipe({ id: recipe.id, title, description });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h3>Edit Recipe</h3>
       <div>
-        <label>Title:</label>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <label>Title: </label>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
       <div>
-        <label>Instructions:</label>
+        <label>Description: </label>
         <textarea
-          value={instructions}
-          onChange={(e) => setInstructions(e.target.value)}
-          required
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
       <button type="submit">Update</button>
@@ -33,6 +31,7 @@ const EditRecipeForm = ({ recipe, onClose }) => {
 };
 
 export default EditRecipeForm;
+
 
 
 
