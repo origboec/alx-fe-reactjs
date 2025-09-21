@@ -1,15 +1,15 @@
 // src/components/EditRecipeForm.jsx
 import { useState } from "react";
-import { useRecipeStore } from "../recipeStore"; // ✅ corrected import path
+import { useRecipeStore } from "./recipeStore";
 
 const EditRecipeForm = ({ recipe }) => {
-  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
   const [title, setTitle] = useState(recipe.title);
-  const [description, setDescription] = useState(recipe.description);
+  const [instructions, setInstructions] = useState(recipe.instructions);
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateRecipe(recipe.id, { title, description });
+    updateRecipe({ ...recipe, title, instructions });
   };
 
   return (
@@ -18,20 +18,18 @@ const EditRecipeForm = ({ recipe }) => {
       <input
         type="text"
         value={title}
-        placeholder="Recipe Title"
         onChange={(e) => setTitle(e.target.value)}
-        required
       />
       <textarea
-        value={description}
-        placeholder="Recipe Description"
-        onChange={(e) => setDescription(e.target.value)}
-        required
+        value={instructions}
+        onChange={(e) => setInstructions(e.target.value)}
       />
-      <button type="submit">Update Recipe</button>
+      <button type="submit">Update</button>
     </form>
   );
 };
 
 export default EditRecipeForm;
+
+
 
